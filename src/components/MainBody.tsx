@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactECharts } from '../Echarts/ReactECharts';
 import { graphOption } from '../utils/getOption';
 import { returnAllData } from '../utils/getData';
@@ -8,6 +8,9 @@ export const MainBody = () => {
   const [currentOption, setCurrentOption] = useState(
     graphOption([1], [2], 'Курс доллара')
   );
+
+ 
+
 
   const dollarData = [
     {
@@ -196,6 +199,7 @@ export const MainBody = () => {
       <div className="graph">
         <ReactECharts option={currentOption} />
         <div>
+            {/* TODO */}
           Среднее за период <br /> 66,7 ₽
         </div>
       </div>
