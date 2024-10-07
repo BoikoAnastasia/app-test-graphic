@@ -1,4 +1,4 @@
-export const graphOption = (monthData:any, valueData:any) => {
+export const graphOption = (monthData:any, valueData:any, nameSeries:string) => {
     const option = {
     color: 'rgba(243, 139, 0, 1)',
     backgroundColor: 'transparent',
@@ -32,7 +32,7 @@ export const graphOption = (monthData:any, valueData:any) => {
     series: [
       {
         // TODO менять в зависимости от курса
-        name: 'Курс доллара',
+        name: nameSeries,
         type: 'line',
         data: valueData,
       },
