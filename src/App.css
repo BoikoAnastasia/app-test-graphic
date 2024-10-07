@@ -37,6 +37,8 @@ body{
 .graph{
     height: 370px;
     width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 button{

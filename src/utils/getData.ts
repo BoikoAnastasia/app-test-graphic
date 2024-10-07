@@ -1,4 +1,3 @@
-//Данные для приложения
 const mockData = [
   {
     date: '2016-02-01',
@@ -147,3 +146,12 @@ const mockData = [
     value: 19,
   },
 ];
+
+// TODO any
+export const returnAllData = (dataArr: any) => {
+  const datesData = dataArr.map((item: any) => item.date);
+  const monthData = dataArr.map((item: any) => item.month);
+  const indicatorData = dataArr.map((item: any) => item.indicator);
+  const valueData = dataArr.map((item: any) => item.value);
+  return { datesData, monthData, indicatorData, valueData };
+};
