@@ -2,36 +2,24 @@ import { useEffect, useState } from 'react';
 import { ReactECharts } from '../Echarts/ReactECharts';
 import { graphOption } from '../utils/getOption';
 import { returnAllData } from '../utils/getData';
+import { fetchResponceData } from '../API/fetchData';
 
 export const MainBody = () => {
-  const [activeKey, setActiveKey] = useState<string>("dollar");
-  const [currentOption, setCurrentOption] = useState(
-    graphOption([1], [2], 'Курс доллара')
-  );
+  const [activeKey, setActiveKey] = useState<string>('dollar');
+  const [currentOption, setCurrentOption] = useState<any>(null);
+  const [dataGraph, setDataGraph] = useState([]);
 
- 
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchResponceData();
+      setDataGraph(data);
+      const { monthData, valueData } = returnAllData(data);
+      setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
+    };
 
+    fetchData();
+  }, []);
 
-  const dollarData = [
-    {
-      date: '2016-02-01',
-      month: 'фев 2016',
-      indicator: 'Курс доллара',
-      value: 72,
-    },
-    {
-      date: '2016-03-02',
-      month: 'мар 2016',
-      indicator: 'Курс доллара',
-      value: 80,
-    },
-    {
-      date: '2016-04-01',
-      month: 'апр 2016',
-      indicator: 'Курс доллара',
-      value: 77,
-    },
-  ];
   const eureData = [
     {
       date: '2016-05-02',
@@ -166,22 +154,22 @@ export const MainBody = () => {
   ];
 
   const changeGraphDollars = () => {
-    setActiveKey("dollar")
-    const { datesData, monthData, indicatorData, valueData } =
-      returnAllData(dollarData);
-    setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
+    setActiveKey('dollar');
+    // const { datesData, monthData, indicatorData, valueData } =
+    //   returnAllData(dataGraph);
+    // setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
   };
   const changeGraphsEuro = () => {
-    setActiveKey("euro")
-    const { datesData, monthData, indicatorData, valueData } =
-    returnAllData(eureData);
-  setCurrentOption(graphOption(monthData, valueData, 'Курс евро'));
+    setActiveKey('euro');
+    // const { datesData, monthData, indicatorData, valueData } =
+    //   returnAllData(dataGraph);
+    // setCurrentOption(graphOption(monthData, valueData, 'Курс евро'));
   };
   const changeGraphYen = () => {
-    setActiveKey("yen")
-    const { datesData, monthData, indicatorData, valueData } =
-    returnAllData(yenData);
-  setCurrentOption(graphOption(monthData, valueData, 'Курс йен'));
+    setActiveKey('yen');
+    // const { datesData, monthData, indicatorData, valueData } =
+    //   returnAllData(dataGraph);
+    // setCurrentOption(graphOption(monthData, valueData, 'Курс йен'));
   };
 
   return (
@@ -189,20 +177,35 @@ export const MainBody = () => {
       <div className="header">
         <h1>КУРС ДОЛЛАРА, $/₽</h1>
         <div className="buttons">
-          <button className={` ${activeKey === "dollar" ? 'active' : ''}`}  onClick={changeGraphDollars}>
+          <button
+            className={` ${activeKey === 'dollar' ? 'active' : ''}`}
+            onClick={changeGraphDollars}
+          >
             $
           </button>
-          <button className={` ${activeKey === "euro" ? 'active' : ''}`}  onClick={changeGraphsEuro}>€</button>
-          <button className={` ${activeKey === "yen" ? 'active' : ''}`}  onClick={changeGraphYen}>¥</button>
+          <button
+            className={` ${activeKey === 'euro' ? 'active' : ''}`}
+            onClick={changeGraphsEuro}
+          >
+            €
+          </button>
+          <button
+            className={` ${activeKey === 'yen' ? 'active' : ''}`}
+            onClick={changeGraphYen}
+          >
+            ¥
+          </button>
         </div>
       </div>
-      <div className="graph">
-        <ReactECharts option={currentOption} />
-        <div>
+      {currentOption!==null && (
+        <div className="graph">
+          <ReactECharts option={currentOption} />
+          <div>
             {/* TODO */}
-          Среднее за период <br /> 66,7 ₽
+            Среднее за период <br /> 66,7 ₽
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-export const fetchData = async () => {
+export const fetchResponceData = async () => {
   try {
     const res = await fetch(
       'https://67046c97ab8a8f892733d05c.mockapi.io/api-graph/data/dates',
@@ -10,7 +10,7 @@ export const fetchData = async () => {
     const data = await res.json();
     return data;
   } catch (e: any) {
-    alert(e.message);
+    console.log(e.message);
   }
 
 //   fetch('https://67046c97ab8a8f892733d05c.mockapi.io/api-graph/data/dates', {
