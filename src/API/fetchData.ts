@@ -1,3 +1,4 @@
+//return data dollars
 export const fetchDataDollars = async () => {
   try {
     const res = await fetch(
@@ -13,7 +14,7 @@ export const fetchDataDollars = async () => {
     console.log(e.message);
   }
 };
-
+//return data euro
 export const fetchDataEuro = async () => {
   try {
     const res = await fetch(
@@ -30,6 +31,7 @@ export const fetchDataEuro = async () => {
   }
 };
 
+//return data yen
 // данная функция не используется, так как mockapi дает только 2 бесплатные api
 export const fetchDataYen = async () => {
   try {

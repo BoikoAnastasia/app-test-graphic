@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
-// import type { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 import { forceResizeCharts } from './UtilsForCharts';
 
@@ -12,13 +12,12 @@ interface IOnEvents {
 export interface ReactEChartsProps {
   option: any; // We leave any, since not all typed echarts options are needed to work
   onEvents?: IOnEvents;
-  // style?: CSSProperties;
+  style?: CSSProperties;
   settings?: echarts.SetOptionOpts;
   loading?: boolean;
   theme?: 'light' | 'dark';
   forceResize?: boolean;
 }
-
 
 export interface ILegendselectchangedParams {
   name: string;
@@ -26,11 +25,10 @@ export interface ILegendselectchangedParams {
   type: string;
 }
 
-
 export function ReactECharts({
   option,
   onEvents,
-  // style,
+  style,
   settings,
   loading,
   theme,
@@ -86,8 +84,6 @@ export function ReactECharts({
   }, [loading, theme]);
 
   return (
-    <div ref={chartRef} style={{ width: '100%', height: '100%'
-      // , ...style 
-    }} />
+    <div ref={chartRef} style={{ width: '100%', height: '100%', ...style }} />
   );
 }

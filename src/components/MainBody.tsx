@@ -1,24 +1,30 @@
+//react
 import { useEffect, useState } from 'react';
+//api
+import { fetchDataDollars, fetchDataEuro } from '../API/fetchData';
+//utils
 import { ReactECharts } from '../Echarts/ReactECharts';
 import { graphOption } from '../utils/getOption';
 import { returnAllData } from '../utils/getData';
-import { fetchDataDollars, fetchDataEuro } from '../API/fetchData';
 
 export const MainBody = () => {
   const [activeKey, setActiveKey] = useState<string>('dollar');
   const [currentOption, setCurrentOption] = useState<any>(null);
   const [averageCount, setAverageCount] = useState(0);
+  const [title, setTitle] = useState('КУРС ДОЛЛАРА, $/₽');
 
   useEffect(() => {
-    fetchData('dollar', fetchDataDollars, 'Курс доллара');
+    fetchData('dollar', fetchDataDollars, 'Курс доллара', 'КУРС ДОЛЛАРА, $/₽');
   }, []);
 
   const fetchData = async (
     keyname: string,
     functionFetch: () => void,
-    nameKurs: string
+    nameKurs: string,
+    title: string
   ) => {
     setActiveKey(keyname);
+    setTitle(title);
     const data = await functionFetch();
     const { monthData, valueData, averageData } = returnAllData(data);
     setCurrentOption(graphOption(monthData, valueData, nameKurs));
@@ -26,21 +32,21 @@ export const MainBody = () => {
   };
 
   const changeGraphDollars = () => {
-    fetchData('dollar', fetchDataDollars, 'Курс доллара');
+    fetchData('dollar', fetchDataDollars, 'Курс доллара', 'КУРС ДОЛЛАРА, $/₽');
   };
 
   const changeGraphsEuro = async () => {
-    fetchData('euro', fetchDataEuro, 'Курс евро');
+    fetchData('euro', fetchDataEuro, 'Курс евро', 'КУРС ЕВРО, €/₽');
   };
 
   const changeGraphYen = async () => {
-    fetchData('yen', fetchDataDollars, 'Курс йен');
+    fetchData('yen', fetchDataDollars, 'Курс йен', 'КУРС ЙЕН, ¥/₽');
   };
 
   return (
     <div className="main-content">
       <div className="header">
-        <h1>КУРС ДОЛЛАРА, $/₽</h1>
+        <h1>{title}</h1>
         <div className="buttons">
           <button
             className={` ${activeKey === 'dollar' ? 'active' : ''}`}

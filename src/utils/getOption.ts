@@ -27,11 +27,11 @@ export const graphOption = (monthData:any, valueData:any, nameSeries:string) => 
       axisLabel: {
         formatter: '{value}',
       },
-      //TODO min значение вместо 0
+      min: Math.min(...valueData),
+      max: Math.max(...valueData)
     },
     series: [
       {
-        // TODO менять в зависимости от курса
         name: nameSeries,
         type: 'line',
         data: valueData,
