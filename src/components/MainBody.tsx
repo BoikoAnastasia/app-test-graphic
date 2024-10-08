@@ -13,36 +13,27 @@ export const MainBody = () => {
   const [averageCount, setAverageCount] = useState(0)
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchDataDollars();
-      const { monthData, valueData, averageData } = returnAllData(data);
-      setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
-      setAverageCount(averageData)
-    };
-    fetchData();
+    fetchData('dollar', fetchDataDollars, 'Курс доллара');
   }, []);
 
-  const changeGraphDollars = async () => {
-    setActiveKey('dollar');
-    const data = await fetchDataDollars();
+  const fetchData = async (keyname: string, functionFetch: ()=>void, nameKurs: string) => {
+    setActiveKey(keyname);
+    const data = await functionFetch();
     const { monthData, valueData, averageData } = returnAllData(data);
-    setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
+    setCurrentOption(graphOption(monthData, valueData, nameKurs));
     setAverageCount(averageData)
   };
+
+  const changeGraphDollars = () => {
+    fetchData('dollar', fetchDataDollars, 'Курс доллара');
+  };
+
   const changeGraphsEuro = async () => {
-    setActiveKey('euro');
-    const data = await fetchDataEuro();
-    const { monthData, valueData, averageData } = returnAllData(data);
-    setCurrentOption(graphOption(monthData, valueData, 'Курс евро'));
-    setAverageCount(averageData)
+    fetchData('euro', fetchDataEuro, 'Курс евро');
   };
 
   const changeGraphYen = async () => {
-    setActiveKey('yen');
-    const data = await fetchDataDollars();
-    const { monthData, valueData, averageData } = returnAllData(data);
-    setCurrentOption(graphOption(monthData, valueData, 'Курс йен'));
-    setAverageCount(averageData)
+    fetchData('yen', fetchDataDollars, 'Курс йен');
   };
 
   return (
@@ -75,6 +66,7 @@ export const MainBody = () => {
           <ReactECharts option={currentOption} />
           <div>
             {/* TODO */}
+            
             Среднее за период <br /> {averageCount} ₽
           </div>
         </div>
