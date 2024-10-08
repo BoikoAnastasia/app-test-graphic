@@ -6,6 +6,7 @@
 
 body{
     background-color: #f5f5f5;
+    font-family: "Inter", sans-serif;
 }
 
 .container{
@@ -30,8 +31,6 @@ body{
     color: rgba(0, 32, 51, 1);
     font-size: 20px;
     font-weight: 700;
-    /* TODO */
-    /* font-family: ; */
 }
 
 .graph{
@@ -55,4 +54,21 @@ button{
 .active{
     color: rgba(255, 255, 255, 1);
     background-color: rgba(0, 120, 210, 1);
+}
+
+.text{
+    font-size: 16px;
+    color: rgba(102, 121, 133, 1);
+    text-align: center;
+    line-height: 24px;
+    display: flex; 
+    flex-direction: column;
+    gap: 20px;
+    width: 200px;
+}
+
+.cost{
+    font-size: 48px;
+    color: rgba(243, 139, 0, 1);    
+    margin-top: 20px;
 }

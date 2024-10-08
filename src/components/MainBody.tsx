@@ -2,26 +2,27 @@ import { useEffect, useState } from 'react';
 import { ReactECharts } from '../Echarts/ReactECharts';
 import { graphOption } from '../utils/getOption';
 import { returnAllData } from '../utils/getData';
-import {
-  fetchDataDollars,
-  fetchDataEuro,
-} from '../API/fetchData';
+import { fetchDataDollars, fetchDataEuro } from '../API/fetchData';
 
 export const MainBody = () => {
   const [activeKey, setActiveKey] = useState<string>('dollar');
   const [currentOption, setCurrentOption] = useState<any>(null);
-  const [averageCount, setAverageCount] = useState(0)
+  const [averageCount, setAverageCount] = useState(0);
 
   useEffect(() => {
     fetchData('dollar', fetchDataDollars, 'Курс доллара');
   }, []);
 
-  const fetchData = async (keyname: string, functionFetch: ()=>void, nameKurs: string) => {
+  const fetchData = async (
+    keyname: string,
+    functionFetch: () => void,
+    nameKurs: string
+  ) => {
     setActiveKey(keyname);
     const data = await functionFetch();
     const { monthData, valueData, averageData } = returnAllData(data);
     setCurrentOption(graphOption(monthData, valueData, nameKurs));
-    setAverageCount(averageData)
+    setAverageCount(averageData);
   };
 
   const changeGraphDollars = () => {
@@ -65,9 +66,13 @@ export const MainBody = () => {
         <div className="graph">
           <ReactECharts option={currentOption} />
           <div>
-            {/* TODO */}
-            
-            Среднее за период <br /> {averageCount} ₽
+            <p className="text">
+              <span> Среднее за период</span>
+              <span>
+                {' '}
+                <span className="cost"> {averageCount} </span>₽
+              </span>
+            </p>
           </div>
         </div>
       )}

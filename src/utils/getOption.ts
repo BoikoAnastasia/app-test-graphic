@@ -9,7 +9,7 @@ export const graphOption = (monthData:any, valueData:any, nameSeries:string) => 
       bottom: '1%',
       containLabel: true,
       height: '70%',
-      width: '86%',
+      width: '95%',
     },
     tooltip: {
       trigger: 'axis',
