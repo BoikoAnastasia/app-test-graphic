@@ -6,6 +6,7 @@ import { fetchDataDollars, fetchDataEuro } from '../API/fetchData';
 import { ReactECharts } from '../Echarts/ReactECharts';
 import { graphOption } from '../utils/getOption';
 import { returnAllData } from '../utils/getData';
+import { ButtonComponent } from './UI/Button';
 
 export const MainBody = () => {
   const [activeKey, setActiveKey] = useState<string>('dollar');
@@ -35,11 +36,11 @@ export const MainBody = () => {
     fetchData('dollar', fetchDataDollars, 'Курс доллара', 'КУРС ДОЛЛАРА, $/₽');
   };
 
-  const changeGraphsEuro = async () => {
+  const changeGraphsEuro = () => {
     fetchData('euro', fetchDataEuro, 'Курс евро', 'КУРС ЕВРО, €/₽');
   };
 
-  const changeGraphYen = async () => {
+  const changeGraphYen = () => {
     fetchData('yen', fetchDataDollars, 'Курс йен', 'КУРС ЙЕН, ¥/₽');
   };
 
@@ -47,25 +48,25 @@ export const MainBody = () => {
     <div className="main-content">
       <div className="header">
         <h1>{title}</h1>
-        <div className="buttons">
-          <button
-            className={` ${activeKey === 'dollar' ? 'active' : ''}`}
-            onClick={changeGraphDollars}
-          >
-            $
-          </button>
-          <button
-            className={` ${activeKey === 'euro' ? 'active' : ''}`}
-            onClick={changeGraphsEuro}
-          >
-            €
-          </button>
-          <button
-            className={` ${activeKey === 'yen' ? 'active' : ''}`}
-            onClick={changeGraphYen}
-          >
-            ¥
-          </button>
+        <div className="buttons-flex">
+          <ButtonComponent
+            activeKey={activeKey}
+            keyName={'dollar'}
+            label={'$'}
+            handleClick={changeGraphDollars}
+          ></ButtonComponent>
+          <ButtonComponent
+            activeKey={activeKey}
+            keyName={'euro'}
+            label={'€'}
+            handleClick={changeGraphsEuro}
+          ></ButtonComponent>
+          <ButtonComponent
+            activeKey={activeKey}
+            keyName={'yen'}
+            label={'¥'}
+            handleClick={changeGraphYen}
+          ></ButtonComponent>
         </div>
       </div>
       {currentOption !== null && (
