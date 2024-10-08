@@ -2,174 +2,47 @@ import { useEffect, useState } from 'react';
 import { ReactECharts } from '../Echarts/ReactECharts';
 import { graphOption } from '../utils/getOption';
 import { returnAllData } from '../utils/getData';
-import { fetchResponceData } from '../API/fetchData';
+import {
+  fetchDataDollars,
+  fetchDataEuro,
+} from '../API/fetchData';
 
 export const MainBody = () => {
   const [activeKey, setActiveKey] = useState<string>('dollar');
   const [currentOption, setCurrentOption] = useState<any>(null);
-  const [dataGraph, setDataGraph] = useState([]);
+  const [averageCount, setAverageCount] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchResponceData();
-      setDataGraph(data);
-      const { monthData, valueData } = returnAllData(data);
+      const data = await fetchDataDollars();
+      const { monthData, valueData, averageData } = returnAllData(data);
       setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
+      setAverageCount(averageData)
     };
-
     fetchData();
   }, []);
 
-  const eureData = [
-    {
-      date: '2016-05-02',
-      month: 'май 2016',
-      indicator: 'Курс доллара',
-      value: 78,
-    },
-    {
-      date: '2016-02-01',
-      month: 'июн 2016',
-      indicator: 'Курс доллара',
-      value: 77,
-    },
-  ];
-  const yenData = [
-    {
-      date: '2016-03-02',
-      month: 'июл 2016',
-      indicator: 'Курс доллара',
-      value: 76,
-    },
-    {
-      date: '2016-04-01',
-      month: 'авг 2016',
-      indicator: 'Курс доллара',
-      value: 81,
-    },
-    {
-      date: '2016-05-02',
-      month: 'сент 2016',
-      indicator: 'Курс доллара',
-      value: 82,
-    },
-
-    {
-      date: '2016-02-01',
-      month: 'фев 2016',
-      indicator: 'Курс евро',
-      value: 90,
-    },
-    {
-      date: '2016-03-02',
-      month: 'мар 2016',
-      indicator: 'Курс евро',
-      value: 88,
-    },
-    {
-      date: '2016-04-01',
-      month: 'апр 2016',
-      indicator: 'Курс евро',
-      value: 87,
-    },
-    {
-      date: '2016-05-02',
-      month: 'май 2016',
-      indicator: 'Курс евро',
-      value: 91,
-    },
-    {
-      date: '2016-02-01',
-      month: 'июн 2016',
-      indicator: 'Курс евро',
-      value: 92,
-    },
-    {
-      date: '2016-03-02',
-      month: 'июл 2016',
-      indicator: 'Курс евро',
-      value: 93,
-    },
-    {
-      date: '2016-04-01',
-      month: 'авг 2016',
-      indicator: 'Курс евро',
-      value: 89,
-    },
-    {
-      date: '2016-05-02',
-      month: 'сент 2016',
-      indicator: 'Курс евро',
-      value: 88,
-    },
-
-    {
-      date: '2016-02-01',
-      month: 'фев 2016',
-      indicator: 'Курс юаня',
-      value: 22,
-    },
-    {
-      date: '2016-03-02',
-      month: 'мар 2016',
-      indicator: 'Курс юаня',
-      value: 24,
-    },
-    {
-      date: '2016-04-01',
-      month: 'апр 2016',
-      indicator: 'Курс юаня',
-      value: 25,
-    },
-    {
-      date: '2016-05-02',
-      month: 'май 2016',
-      indicator: 'Курс юаня',
-      value: 21,
-    },
-    {
-      date: '2016-02-01',
-      month: 'июн 2016',
-      indicator: 'Курс юаня',
-      value: 23,
-    },
-    {
-      date: '2016-03-02',
-      month: 'июл 2016',
-      indicator: 'Курс юаня',
-      value: 24,
-    },
-    {
-      date: '2016-04-01',
-      month: 'авг 2016',
-      indicator: 'Курс юаня',
-      value: 26,
-    },
-    {
-      date: '2016-05-02',
-      month: 'сент 2016',
-      indicator: 'Курс юаня',
-      value: 19,
-    },
-  ];
-
-  const changeGraphDollars = () => {
+  const changeGraphDollars = async () => {
     setActiveKey('dollar');
-    // const { datesData, monthData, indicatorData, valueData } =
-    //   returnAllData(dataGraph);
-    // setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
+    const data = await fetchDataDollars();
+    const { monthData, valueData, averageData } = returnAllData(data);
+    setCurrentOption(graphOption(monthData, valueData, 'Курс доллара'));
+    setAverageCount(averageData)
   };
-  const changeGraphsEuro = () => {
+  const changeGraphsEuro = async () => {
     setActiveKey('euro');
-    // const { datesData, monthData, indicatorData, valueData } =
-    //   returnAllData(dataGraph);
-    // setCurrentOption(graphOption(monthData, valueData, 'Курс евро'));
+    const data = await fetchDataEuro();
+    const { monthData, valueData, averageData } = returnAllData(data);
+    setCurrentOption(graphOption(monthData, valueData, 'Курс евро'));
+    setAverageCount(averageData)
   };
-  const changeGraphYen = () => {
+
+  const changeGraphYen = async () => {
     setActiveKey('yen');
-    // const { datesData, monthData, indicatorData, valueData } =
-    //   returnAllData(dataGraph);
-    // setCurrentOption(graphOption(monthData, valueData, 'Курс йен'));
+    const data = await fetchDataDollars();
+    const { monthData, valueData, averageData } = returnAllData(data);
+    setCurrentOption(graphOption(monthData, valueData, 'Курс йен'));
+    setAverageCount(averageData)
   };
 
   return (
@@ -197,12 +70,12 @@ export const MainBody = () => {
           </button>
         </div>
       </div>
-      {currentOption!==null && (
+      {currentOption !== null && (
         <div className="graph">
           <ReactECharts option={currentOption} />
           <div>
             {/* TODO */}
-            Среднее за период <br /> 66,7 ₽
+            Среднее за период <br /> {averageCount} ₽
           </div>
         </div>
       )}

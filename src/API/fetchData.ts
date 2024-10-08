@@ -1,4 +1,4 @@
-export const fetchResponceData = async () => {
+export const fetchDataDollars = async () => {
   try {
     const res = await fetch(
       'https://67046c97ab8a8f892733d05c.mockapi.io/api-graph/data/dates',
@@ -12,20 +12,37 @@ export const fetchResponceData = async () => {
   } catch (e: any) {
     console.log(e.message);
   }
+};
 
-//   fetch('https://67046c97ab8a8f892733d05c.mockapi.io/api-graph/data/dates', {
-//     method: 'GET',
-//     headers: { 'content-type': 'application/json' },
-//   })
-//     .then((res) => {
-//       if (res.ok) {
-//         return res.json();
-//       }
-//     })
-//     .then((tasks) => {
-//       console.log(tasks);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
+export const fetchDataEuro = async () => {
+  try {
+    const res = await fetch(
+      'https://67046c97ab8a8f892733d05c.mockapi.io/api-graph/data/yeros',
+      {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (e: any) {
+    console.log(e.message);
+  }
+};
+
+// данная функция не используется, так как mockapi дает только 2 бесплатные api
+export const fetchDataYen = async () => {
+  try {
+    const res = await fetch(
+      'https://67046c97ab8a8f892733d05c.mockapi.io/api-graph/data/yen',
+      {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (e: any) {
+    console.log(e.message);
+  }
 };
